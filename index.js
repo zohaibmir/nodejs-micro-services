@@ -1,17 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const vehicleService = require("./services/vehicleService");
+const vehicleService = require("./src/services/vehicleService");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const app = express();
+const index = express();
 
-app.use(bodyParser.json());
+index.use(bodyParser.json());
 
 // load the test data
 vehicleService.seed();
 
 // configure swagger
-require('./swagger')(app);
+require('./src/swagger')(index);
 
 // healthcheck endpoint
 /**
@@ -24,7 +24,7 @@ require('./swagger')(app);
  *       200:
  *         description: A message indicating that the service is running.
  */
-app.get("/", (req, res) => {
+index.get("/", (req, res) => {
     res.status(200).send("Vehicle Service");
 });
 
@@ -86,7 +86,7 @@ app.get("/", (req, res) => {
  *       500:
  *         description: Internal server error.
  */
-app.post("/vehicle", vehicleService.createVehicle);
+index.post("/vehicle", vehicleService.createVehicle);
 
 /**
  * @swagger
@@ -117,7 +117,7 @@ app.post("/vehicle", vehicleService.createVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.put("/vehicle/:id", vehicleService.updateVehicle);
+index.put("/vehicle/:id", vehicleService.updateVehicle);
 
 /**
  * @swagger
@@ -138,7 +138,7 @@ app.put("/vehicle/:id", vehicleService.updateVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.delete("/vehicle/:id", vehicleService.deleteVehicle);
+index.delete("/vehicle/:id", vehicleService.deleteVehicle);
 
 /**
  * @swagger
@@ -165,7 +165,7 @@ app.delete("/vehicle/:id", vehicleService.deleteVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.get("/vehicle/:id", vehicleService.getVehicle);
+index.get("/vehicle/:id", vehicleService.getVehicle);
 
 /**
  * @swagger
@@ -187,7 +187,7 @@ app.get("/vehicle/:id", vehicleService.getVehicle);
  *       500:
  *         description: Internal server error.
  */
-app.get("/vehicles", vehicleService.getAllVehicles);
+index.get("/vehicles", vehicleService.getAllVehicles);
 
 /**
  * @swagger
@@ -214,7 +214,7 @@ app.get("/vehicles", vehicleService.getAllVehicles);
  *       500:
  *         description: Internal server error.
  */
-app.get(
+index.get(
     "/vehicle/search/:registrationNumber",
     vehicleService.searchVehicleByRegistrationNumber
 );
@@ -246,12 +246,12 @@ app.get(
  *       500:
  *         description: Internal server error.
  */
-app.get(
+index.get(
     "/vehicles/price/:maxPrice",
     vehicleService.lookupVehiclesByMaxRentalPrice
 );
 
 const PORT = 3000;
-app.listen(PORT, () => {
+index.listen(PORT, () => {
     console.log(`Vehicle Service is running on port ${PORT}`);
 });

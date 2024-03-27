@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb://mongo:27017/vehicles';
+const uri = 'mongodb://localhost:27017/vehicles';
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000, // Set the timeout for selecting a server
-  socketTimeoutMS: 45000, 
+  socketTimeoutMS: 45000,
   autoIndex: true,
 };
 

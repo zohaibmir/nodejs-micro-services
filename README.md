@@ -1,2 +1,2 @@
 # nodejs-micro-services
-Node Js Micro Service 
+Node.js Microservices Fundamentals
